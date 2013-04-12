@@ -1,0 +1,27 @@
+<div id="{orgId}">
+	<div class="org_logo">
+		<img src="{pic}"/>
+	</div>
+
+	<div class="name">
+		{orgName}
+	</div>
+	
+	
+	
+	<div class="reward_addr">
+		{address}
+	</div>
+	
+	<div class="reward_number">
+		Rewards:{reward_number}
+	</div>
+	<input type="file" class="files" name="files[]" style="display:none"/>
+	
+	<div><button class="edit">Edit</button></div>
+	<div class="ajax-loader" style="display:none">
+		<img src="img/ajax-loader.gif">
+	<div>
+	<div class="clear"></div>
+	
+</div>
