@@ -70,14 +70,15 @@ var NotebooksView = Backbone.View.extend({
     tagName: "ul",
    
     render: function() {
-        $(this.el).html('');   
+        //$(this.el).html('');   
         this.collection.each(function(notebook) {
             var notebookView = new NotebookView({
                 model: notebook,
             });
-            $(this.el).prepend(notebookView.render());
+            $(this.el).append(notebookView.render());
             //console.log($(this.el));
         }, this);
+        return $(this.el);
     }
 
 });
@@ -86,13 +87,13 @@ var NotebooksView = Backbone.View.extend({
 var myNotebooks = new Notebooks();
 
 var myNotebooksView = new NotebooksView({
-    el: "#content",
+    
     collection: myNotebooks
 });
 myNotebooks.fetch({
     success: function(collection) {
        
-    	myNotebooksView.render();
+    	$('#content').html(myNotebooksView.render());
 
     }
 });
