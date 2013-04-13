@@ -43,34 +43,39 @@ var NotebookView = Backbone.View.extend({
     },
    
     render: function() {
-//        $(this.el).html('');
-//        data = {
-//            "orgId": this.model.get('orgId'),
-//            "orgName": this.model.get('name'),
+        $(this.el).html('');
+        data = {
+            "notebookID": this.model.get('id'),
+            "notebookName": this.model.get('name'),
 //            "pic": this.model.get('pic'),
 //            "address": this.model.get('address'),
 //            "reward_number": this.model.get('rewards').length,
-//        };
+        };
+        that = this;
+        dust.render("notebooklist", data, function(err, out) {
+            console.log(out);
+            if(!err) {
+                $(that.el).html(out.toString());
+            } else {
+                return console.log(err);
+            }
+        });
 
-//        that = this;
-//        dust.render("org", data, function(err, out) {
-//            if(!err) {
-//                $(that.el).html(out.toString());
-//            } else {
-//                return console.log(err);
-//            }
-//        });
-//        return this;
-    	return $(this.el).html("<div class='bookname'>"+this.model.get('name')+"</div>");
+        return $(this.el);
+    	// return $(this.el).html("<div class='bookname'>"+this.model.get('name')+"</div>");
     },
 });
 
 var NotebooksView = Backbone.View.extend({
     className: "Notebooks",
     tagName: "ul",
-   
+    attributes: {
+        dataattr: 'mydata'
+    },
     render: function() {
         //$(this.el).html('');   
+        $(this.el).attr("data-role","listview");
+        //$(this.el).css("display","none");
         this.collection.each(function(notebook) {
             var notebookView = new NotebookView({
                 model: notebook,
@@ -87,14 +92,13 @@ var NotebooksView = Backbone.View.extend({
 var myNotebooks = new Notebooks();
 
 var myNotebooksView = new NotebooksView({
-    
     collection: myNotebooks
 });
 myNotebooks.fetch({
     success: function(collection) {
        
     	$('#content').html(myNotebooksView.render());
+        $('#content').trigger('create');
 
     }
 });
-
