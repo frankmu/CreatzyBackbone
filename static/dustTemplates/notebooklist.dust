@@ -1,1 +1,1 @@
-<div class='bookname'>{notebookName}</div>
+<a class="bookname">{notebookName}</a>

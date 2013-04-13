@@ -1,1 +1,1 @@
-(function(){dust.register("notebooklist",body_0);function body_0(chk,ctx){return chk.write("<div class='bookname'>").reference(ctx.get("notebookName"),ctx,"h").write("</div>");}return body_0;})();
+(function(){dust.register("notebooklist",body_0);function body_0(chk,ctx){return chk.write("<a class=\"bookname\">").reference(ctx.get("notebookName"),ctx,"h").write("</a>");}return body_0;})();
