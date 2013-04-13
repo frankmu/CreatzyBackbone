@@ -43,25 +43,26 @@ var NotebookView = Backbone.View.extend({
     },
    
     render: function() {
-//        $(this.el).html('');
-//        data = {
-//            "orgId": this.model.get('orgId'),
-//            "orgName": this.model.get('name'),
+        $(this.el).html('');
+        data = {
+            "notebookID": this.model.get('id'),
+            "notebookName": this.model.get('name'),
 //            "pic": this.model.get('pic'),
 //            "address": this.model.get('address'),
 //            "reward_number": this.model.get('rewards').length,
-//        };
-
-//        that = this;
-//        dust.render("org", data, function(err, out) {
-//            if(!err) {
-//                $(that.el).html(out.toString());
-//            } else {
-//                return console.log(err);
-//            }
-//        });
-//        return this;
-    	return $(this.el).html("<div class='bookname'>"+this.model.get('name')+"</div>");
+        };
+        that = this;
+        dust.render("notebooklist", data, function(err, out) {
+            console.log(out);
+            if(!err) {
+                $(that.el).html(out.toString());
+                $(".Notebook").trigger('create');
+            } else {
+                return console.log(err);
+            }
+        });
+        return this;
+    	// return $(this.el).html("<div class='bookname'>"+this.model.get('name')+"</div>");
     },
 });
 
@@ -76,6 +77,7 @@ var NotebooksView = Backbone.View.extend({
                 model: notebook,
             });
             $(this.el).prepend(notebookView.render());
+            $(".Notebooks").trigger('create');
             //console.log($(this.el));
         }, this);
     }
@@ -96,4 +98,5 @@ myNotebooks.fetch({
 
     }
 });
+$("#content").trigger('create');
 
