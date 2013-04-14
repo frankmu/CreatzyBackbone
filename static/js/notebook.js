@@ -43,6 +43,7 @@ var NotebookView = Backbone.View.extend({
     },
    
     render: function() {
+     	
         $(this.el).html('');
         data = {
             "notebookID": this.model.get('id'),
@@ -60,6 +61,7 @@ var NotebookView = Backbone.View.extend({
                 return console.log(err);
             }
         });
+       //
 
         return $(this.el);
     	// return $(this.el).html("<div class='bookname'>"+this.model.get('name')+"</div>");
@@ -69,9 +71,28 @@ var NotebookView = Backbone.View.extend({
 var NotebooksView = Backbone.View.extend({
     className: "Notebooks",
     tagName: "ul",
+    initialize:function(options){
+    	
+    	
+    	var notebooksCollection = new Notebooks();
+    	this.collection=notebooksCollection;
+		that = this;
+		notebooksCollection.fetch({
+			success : function(collection) {
+
+				//$('#content').html(myNotebooksView.render());
+				//$('#content').trigger('create');
+				//that.changePage(myNotebooksView);
+				that.render();
+			}
+		});
+    	
+    },
+   
     render: function() {
         //$(this.el).html('');   
         $(this.el).attr("data-role","listview");
+        $(this.el).html(''); 
         //$(this.el).css("display","none");
         this.collection.each(function(notebook) {
             var notebookView = new NotebookView({
@@ -80,6 +101,7 @@ var NotebooksView = Backbone.View.extend({
             $(this.el).append(notebookView.render());
             //console.log($(this.el));
         }, this);
+        $('#content').trigger('create');
         return $(this.el);
     }
 
