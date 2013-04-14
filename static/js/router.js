@@ -5,7 +5,7 @@ var AppRouter = Backbone.Router.extend({
 		//"search/:query" : "search", // #search/kiwis
 		//"search/:query/p:page" : "search", // #search/kiwis/p7
 		"NoteBookList" : "noteBookList",
-		"NoteBook:notebookid" : "noteList",
+		"NoteBook/:notebookid" : "noteList",
 	},
 
 	help : function() {
@@ -49,12 +49,13 @@ var AppRouter = Backbone.Router.extend({
 	},
 });
 
-$(document).bind("mobileinit", function() {
+//$(document).bind("mobileinit", function() {
+	console.log("shutdown JQM router");
 	$.mobile.ajaxEnabled = false;
 	$.mobile.linkBindingEnabled = false;
 	$.mobile.hashListeningEnabled = false;
 	$.mobile.pushStateEnabled = false;
-});
+//});
 $('div[data-role="page"]').live('pagehide', function(event, ui) {
 	$(event.currentTarget).remove();
 });
