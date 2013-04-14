@@ -40,11 +40,6 @@ var NotebookView = Backbone.View.extend({
             notebookid: this.model.get('id'),
         });
          $('#content').html(this.notesView.render());
-         setTimeout(function(){
-             $('#content').trigger('create');
-         },300);
-        
-       //this.notesView.render();
 
     },
    
