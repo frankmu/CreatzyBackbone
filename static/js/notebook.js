@@ -30,16 +30,15 @@ var NotebookView = Backbone.View.extend({
     tagName: "li",
     className: "Notebook",
     events: {
-    	"click .bookname": "openNotebook",
+    	//"click .bookname": "openNotebook",
     },
     
     openNotebook:function(){
     	console.log(this.model.get('id'));
-        if(this.notesView==undefined)  this.notesView=new NotesView({
-            //el: "#content",
-            notebookid: this.model.get('id'),
-        });
-         $('#content').html(this.notesView.render());
+        //window.location.href = "NoteNook/"+this.model.get('id');
+        //appRouterInstance.navigate("NoteBook/"+this.model.get('id'));
+        appRouterInstance.navigate("NoteBook/"+"this.model.get('id')", {trigger: true});
+        //app.navigate("NoteNook/"+this.model.get('id'), {trigger: true});
 
     },
    
@@ -87,16 +86,3 @@ var NotebooksView = Backbone.View.extend({
 });
 
 
-var myNotebooks = new Notebooks();
-
-var myNotebooksView = new NotebooksView({
-    collection: myNotebooks
-});
-myNotebooks.fetch({
-    success: function(collection) {
-       
-    	$('#content').html(myNotebooksView.render());
-        $('#content').trigger('create');
-
-    }
-});
