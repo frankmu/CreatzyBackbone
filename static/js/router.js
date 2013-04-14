@@ -5,6 +5,7 @@ var AppRouter = Backbone.Router.extend({
 		//"search/:query" : "search", // #search/kiwis
 		//"search/:query/p:page" : "search", // #search/kiwis/p7
 		"NoteBookList" : "noteBookList",
+		"getPublicBookList" : "getPublicBookList",
 		"NoteBook/:notebookid" : "noteList",
 	},
 
@@ -23,14 +24,25 @@ var AppRouter = Backbone.Router.extend({
 
 	noteBookList : function() {
 		console.log("notebooklist");
-		var newNotebooksView = new NotebooksView();
+		var newNotebooksView = new NotebooksView({'q':'getBookList'});
+		this.changePage(newNotebooksView);
+		
+	},
+	getPublicBookList : function() {
+		console.log("getPublicBookList");
+		var newNotebooksView = new NotebooksView({'q':'getPublicBookList'});
 		this.changePage(newNotebooksView);
 		
 	},
 	changePage : function(page) {
 		//$(page.el).attr('data-role', 'page');
+		
 		page.render();
-		$('#content').html($(page.el));
+		setTimeout(function(){
+			$('#content').html($(page.el));
+			$('#content').trigger('create');
+		},500)
+		
 		//$.mobile.changePage($(page.el), {changeHash:false});
 		//$('#content').trigger('create');
 		//$.mobile.changePage($(page.el), {changeHash:false});

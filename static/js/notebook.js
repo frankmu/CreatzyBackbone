@@ -18,11 +18,12 @@ var Notebook = Backbone.Model.extend({
 
 var Notebooks = Backbone.Collection.extend({
     model: Notebook,
-    initialize: function() {
-
+    initialize: function(models,options) {
+    	this.q=options.q
     },
     url: function() {
-        return "http://note.creatzy.com/notebook/getBookList";
+        url="http://note.creatzy.com/notebook/"+this.q;
+        return url;
     },
 });
 
@@ -74,7 +75,7 @@ var NotebooksView = Backbone.View.extend({
     initialize:function(options){
     	
     	
-    	var notebooksCollection = new Notebooks();
+    	var notebooksCollection = new Notebooks([],{'q':options.q});
     	this.collection=notebooksCollection;
 		that = this;
 		notebooksCollection.fetch({
@@ -101,7 +102,7 @@ var NotebooksView = Backbone.View.extend({
             $(this.el).append(notebookView.render());
             //console.log($(this.el));
         }, this);
-        $('#content').trigger('create');
+        
         return $(this.el);
     }
 

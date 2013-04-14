@@ -115,7 +115,7 @@ var NotesView = Backbone.View.extend({
             $(this.el).prepend(noteView.render());
             //console.log($(this.el));
         }, this);
-        $('#content').trigger('create');
+        
         return $(this.el);
     }
 
