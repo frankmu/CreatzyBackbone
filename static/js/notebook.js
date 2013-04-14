@@ -35,11 +35,17 @@ var NotebookView = Backbone.View.extend({
     
     openNotebook:function(){
     	console.log(this.model.get('id'));
-    	if(this.notesView==undefined)  this.notesView=new NotesView({
-    	    el: "#content",
-    	    notebookid: this.model.get('id'),
-    	});
-    	this.notesView.render();
+        if(this.notesView==undefined)  this.notesView=new NotesView({
+            //el: "#content",
+            notebookid: this.model.get('id'),
+        });
+         $('#content').html(this.notesView.render());
+         setTimeout(function(){
+             $('#content').trigger('create');
+         },300);
+        
+       //this.notesView.render();
+
     },
    
     render: function() {
@@ -69,9 +75,6 @@ var NotebookView = Backbone.View.extend({
 var NotebooksView = Backbone.View.extend({
     className: "Notebooks",
     tagName: "ul",
-    attributes: {
-        dataattr: 'mydata'
-    },
     render: function() {
         //$(this.el).html('');   
         $(this.el).attr("data-role","listview");

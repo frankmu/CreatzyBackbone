@@ -37,25 +37,25 @@ var NoteView = Backbone.View.extend({
    
     render: function() {
     	//console.log("rr");
-//        $(this.el).html('');
-//        data = {
-//            "orgId": this.model.get('orgId'),
-//            "orgName": this.model.get('name'),
-//            "pic": this.model.get('pic'),
-//            "address": this.model.get('address'),
-//            "reward_number": this.model.get('rewards').length,
-//        };
-
-//        that = this;
-//        dust.render("org", data, function(err, out) {
-//            if(!err) {
-//                $(that.el).html(out.toString());
-//            } else {
-//                return console.log(err);
-//            }
-//        });
-//        return this;
-    	return $(this.el).html(this.model.get('notename'));
+         $(this.el).html('');
+         data = {
+             "noteID": this.model.get('id'),
+             "noteName": this.model.get('notename'),
+ //            "pic": this.model.get('pic'),
+ //            "address": this.model.get('address'),
+ //            "reward_number": this.model.get('rewards').length,
+         };
+         console.log(data);
+         my = this;
+         dust.render("notelist", data, function(err, out) {
+             if(!err) {
+                 $(my.el).html(out.toString());
+             } else {
+                 return console.log(err);
+             }
+         });
+         return $(this.el);
+    	//return $(this.el).html(this.model.get('notename'));
     },
 });
 
@@ -80,6 +80,7 @@ var NotesView = Backbone.View.extend({
     },
    
     render: function() {
+        $(this.el).attr("data-role","listview");
         $(this.el).html('');   
         this.collection.each(function(note) {
         	//console.log(note);
@@ -89,6 +90,7 @@ var NotesView = Backbone.View.extend({
             $(this.el).prepend(noteView.render());
             //console.log($(this.el));
         }, this);
+        return $(this.el);
     }
 
 });
