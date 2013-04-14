@@ -37,7 +37,7 @@ var NotebookView = Backbone.View.extend({
     	console.log(this.model.get('id'));
         //window.location.href = "NoteNook/"+this.model.get('id');
         //appRouterInstance.navigate("NoteBook/"+this.model.get('id'));
-        appRouterInstance.navigate("NoteBook/"+"this.model.get('id')", {trigger: true});
+        appRouterInstance.navigate("NoteBook/"+this.model.get('id'), {trigger: true});
         //app.navigate("NoteNook/"+this.model.get('id'), {trigger: true});
 
     },

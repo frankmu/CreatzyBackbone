@@ -1,1 +1,1 @@
-<a class="bookname" href="#NoteBook{notebookID}">{notebookName}</a>
+<a class="bookname" href="#NoteBook/{notebookID}">{notebookName}</a>
