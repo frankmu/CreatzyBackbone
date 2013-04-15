@@ -35,6 +35,7 @@ var AppRouter = Backbone.Router.extend({
 		var newNotebooksView = new NotebooksView({'q':'getBookList'});
 		this.changePage(newNotebooksView);
 		$("#addNewNotebookButton").css("display","block");
+		bindNewBookFunction(newNotebooksView);
 		$("#addNewNoteButton").css("display","none");
 		
 	},
@@ -75,22 +76,31 @@ var AppRouter = Backbone.Router.extend({
 var appRouterInstance = new AppRouter();
 Backbone.history.start();
 
-$("#createNewNotebookButton").live("click", function(){ 
-	var newNotebookName = $("#newNotebookName").val();
-    console.log(newNotebookName);
-    if(newNotebookName != ""){
-        $.ajax({
-            type: "POST",
-            url: "http://note.creatzy.com/notebook/createNotebook",
-            data: { strNotebookName: newNotebookName},
-            success: function (res) { 
-                console.log(res);
-                $("#add-notebook").panel("close");
-                appRouterInstance.navigate("NoteBookList", {trigger: true});
-            }
-        });
-    }else{
-    	$("#add-notebook").panel("close");
-	}
-    
-}); 
+
+function bindNewBookFunction(newNotebooksView){
+	$("#createNewNotebookButton").off("click"); 
+	$("#createNewNotebookButton").live("click", function(){ 
+		var newNotebookName = $("#newNotebookName").val();
+	    console.log(newNotebookName);
+	    if(newNotebookName != ""){
+	        $.ajax({
+	            type: "POST",
+	            url: "http://note.creatzy.com/notebook/createNotebook",
+	            data: { strNotebookName: newNotebookName},
+	            success: function (res) { 
+	            	res=jQuery.parseJSON( res );
+	            	res=res[0];
+	                //console.log(res.noteBookInfo);
+	                $("#add-notebook").panel("close");
+	                newNoteBookModel=new Notebook(res);
+	                newNotebooksView.collection.add(newNoteBookModel);
+	                newNotebooksView.render();
+	                appRouterInstance.navigate("NoteBookList", {trigger: false});
+	            }
+	        });
+	    }else{
+	    	$("#add-notebook").panel("close");
+		}    
+	}); 
+	
+}
