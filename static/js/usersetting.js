@@ -23,6 +23,7 @@ var UserSettingView = Backbone.View.extend({
     tagName: "div",
     initialize:function(options){
         //var user=new User();
+        
         this.model = user;
         that=this;
         console.log(user.url());
@@ -73,12 +74,13 @@ var LoginView = Backbone.View.extend({
     className: "Login",
     tagName: "div",
     initialize:function(options){
-        this.model = user;
+        this.model = new User();
         that=this;
         console.log(user.url());
-        user.fetch({
+        this.model.fetch({
             success: function(data) {
                //console.log(data);
+               user=that.model;
                if(that.model.get('id')==''){
                     //that.render();
                     that.showLoginPage();
