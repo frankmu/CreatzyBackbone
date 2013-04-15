@@ -4,6 +4,7 @@ var AppRouter = Backbone.Router.extend({
 		//"help" : "help", // #help
 		//"search/:query" : "search", // #search/kiwis
 		//"search/:query/p:page" : "search", // #search/kiwis/p7
+		"" : "loginView",
 		"NoteBookList" : "noteBookList",
 		"getPublicBookList" : "getPublicBookList",
 		"NoteBook/:notebookid" : "noteList",
@@ -46,6 +47,12 @@ var AppRouter = Backbone.Router.extend({
 		$("#addNewNotebookButton").css("display","block");
 		$("#addNewNoteButton").css("display","none");
 		
+	},
+	loginView: function(){
+		var loginView = new LoginView();
+		this.changePage(loginView);
+		$("#addNewNotebookButton").css("display","none");
+		$("#addNewNoteButton").css("display","none");
 	},
 	changePage : function(page) {
 		//$(page.el).attr('data-role', 'page');
