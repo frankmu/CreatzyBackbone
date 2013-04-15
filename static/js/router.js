@@ -36,12 +36,15 @@ var AppRouter = Backbone.Router.extend({
 	},
 	changePage : function(page) {
 		//$(page.el).attr('data-role', 'page');
-		
-		page.render();
-		setTimeout(function(){
+		page.afterrender=function(){
 			$('#content').html($(page.el));
 			$('#content').trigger('create');
-		},500)
+		}
+		page.render();
+		// setTimeout(function(){
+			// $('#content').html($(page.el));
+			// $('#content').trigger('create');
+		// },500)
 		
 		//$.mobile.changePage($(page.el), {changeHash:false});
 		//$('#content').trigger('create');

@@ -102,8 +102,11 @@ var NotebooksView = Backbone.View.extend({
             $(this.el).append(notebookView.render());
             //console.log($(this.el));
         }, this);
-        
+        this.afterrender();
         return $(this.el);
+    },
+    afterrender:function(){
+    	console.log("after redner")
     }
 
 });
