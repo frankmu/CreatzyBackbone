@@ -7,12 +7,18 @@ var AppRouter = Backbone.Router.extend({
 		"NoteBookList" : "noteBookList",
 		"getPublicBookList" : "getPublicBookList",
 		"NoteBook/:notebookid" : "noteList",
+		"Usersetting" : "usersetting",
 	},
 
 	help : function() {
 
 	},
+	usersetting : function() {
+		userSettingView = new UserSettingView({
+		});
+		this.changePage(userSettingView);
 
+	},
 	noteList : function(notebookid) {
 		console.log(notebookid);
 		newNotesView = new NotesView({
