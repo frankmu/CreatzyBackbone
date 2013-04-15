@@ -25,6 +25,8 @@ var AppRouter = Backbone.Router.extend({
 			notebookid : notebookid,
 		});
 		this.changePage(newNotesView);
+		$("#addNewNotebookButton").css("display","none");
+		$("#addNewNoteButton").css("display","block");
 
 	},
 
@@ -32,12 +34,16 @@ var AppRouter = Backbone.Router.extend({
 		console.log("notebooklist");
 		var newNotebooksView = new NotebooksView({'q':'getBookList'});
 		this.changePage(newNotebooksView);
+		$("#addNewNotebookButton").css("display","block");
+		$("#addNewNoteButton").css("display","none");
 		
 	},
 	getPublicBookList : function() {
 		console.log("getPublicBookList");
 		var newNotebooksView = new NotebooksView({'q':'getPublicBookList'});
 		this.changePage(newNotebooksView);
+		$("#addNewNotebookButton").css("display","block");
+		$("#addNewNoteButton").css("display","none");
 		
 	},
 	changePage : function(page) {
@@ -68,3 +74,23 @@ var AppRouter = Backbone.Router.extend({
 
 var appRouterInstance = new AppRouter();
 Backbone.history.start();
+
+$("#createNewNotebookButton").live("click", function(){ 
+	var newNotebookName = $("#newNotebookName").val();
+    console.log(newNotebookName);
+    if(newNotebookName != ""){
+        $.ajax({
+            type: "POST",
+            url: "http://note.creatzy.com/notebook/createNotebook",
+            data: { strNotebookName: newNotebookName},
+            success: function (res) { 
+                console.log(res);
+                $("#add-notebook").panel("close");
+                appRouterInstance.navigate("NoteBookList", {trigger: true});
+            }
+        });
+    }else{
+    	$("#add-notebook").panel("close");
+	}
+    
+}); 

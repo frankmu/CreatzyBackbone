@@ -38,12 +38,15 @@
 	
 	<body>
 		<div data-role="page" id="page1">
+
 			<div data-theme="a" data-role="header" class="header">
         		<h3>
             		Crazty Notes
         		</h3>
+        			<a href="#add-notebook" data-icon="plus" style="display:block"class="ui-btn-right"id ="addNewNotebookButton">Add Notebook</a>
+        			<a data-icon="plus" style="display:none"class="ui-btn-right"id ="addNewNoteButton">Add Note</a>
     		</div>
-			<div class="body" id="content">
+			<div class="body" id="content"data-role="content">
 				
 			</div>
 			
@@ -56,6 +59,17 @@
 					</ul>
 				</div><!-- /navbar -->
 			</div><!-- /footer -->
+			<div data-role="panel" data-position="left" data-display="reveal" id="add-notebook" data-theme="a">
+				<form class="userform">
+						<h2>Create new notebook</h2>
+						<label for="name">Notebook Name</label>
+						<input type="text" name="name" id="newNotebookName" value="" data-clear-btn="true" data-mini="true">
+						<div class="ui-grid-a">
+						    <div class="ui-block-a"><a data-rel="close" data-role="button" data-theme="c" data-mini="true">Cancel</a></div>
+						    <div class="ui-block-b"><a data-role="button" data-theme="b" data-mini="true" id="createNewNotebookButton">Save</a></div>
+						</div>
+				</form>
+			</div>
 		</div>
 	</body>
 
