@@ -87,6 +87,7 @@ Backbone.history.start();
 function bindNewBookFunction(newNotebooksView){
 	$("#createNewNotebookButton").off("click"); 
 	$("#createNewNotebookButton").live("click", function(){ 
+		$("#createNewNotebookButton").off("click"); 
 		var newNotebookName = $("#newNotebookName").val();
 	    console.log(newNotebookName);
 	    if(newNotebookName != ""){
