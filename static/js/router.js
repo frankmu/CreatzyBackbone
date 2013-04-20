@@ -18,6 +18,8 @@ var AppRouter = Backbone.Router.extend({
 		userSettingView = new UserSettingView({
 		});
 		this.changePage(userSettingView);
+		$("#addNewNotebookButton").css("display","none");
+		$("#addNewNoteButton").css("display","none");
 
 	},
 	noteList : function(notebookid) {
@@ -44,7 +46,7 @@ var AppRouter = Backbone.Router.extend({
 		console.log("getPublicBookList");
 		var newNotebooksView = new NotebooksView({'q':'getPublicBookList'});
 		this.changePage(newNotebooksView);
-		$("#addNewNotebookButton").css("display","block");
+		$("#addNewNotebookButton").css("display","none");
 		$("#addNewNoteButton").css("display","none");
 		
 	},
