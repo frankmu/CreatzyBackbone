@@ -86,6 +86,11 @@ var LoginView = Backbone.View.extend({
                     that.showLoginPage();
                }else{
                     appRouterInstance.navigate("NoteBookList", {trigger: true});
+                    $(document).ready(function() {
+                        $("#homeNavi").removeClass('ui-disabled');
+                        $("#publicNavi").removeClass('ui-disabled');
+                        $("#settingNavi").removeClass('ui-disabled');
+                    });
                }
                
             }
@@ -100,6 +105,12 @@ var LoginView = Backbone.View.extend({
             if(!err) {
                 $("#content").html(out.toString());
                 $('#content').trigger('create');
+                $(document).ready(function() {
+                    $(".ui-btn-active").removeClass('ui-btn-active');
+                    $("#homeNavi").addClass('ui-disabled');
+                    $("#publicNavi").addClass('ui-disabled');
+                    $("#settingNavi").addClass('ui-disabled');
+                });
             } else {
                 return console.log(err);
             }
@@ -114,6 +125,11 @@ var LoginView = Backbone.View.extend({
                 url: $(this).attr('action'), 
                 success: function(response) { 
                     appRouterInstance.navigate("NoteBookList", {trigger: true});
+                    $(document).ready(function() {
+                        $("#homeNavi").removeClass('ui-disabled');
+                        $("#publicNavi").removeClass('ui-disabled');
+                        $("#settingNavi").removeClass('ui-disabled');
+                    });
                 }
             });
             return false; // cancel original event to prevent form submitting
