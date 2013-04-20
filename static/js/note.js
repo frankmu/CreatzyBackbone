@@ -57,30 +57,8 @@ var NoteView = Backbone.View.extend({
     	//return $(this.el).html(this.model.get('notename'));
     },
     openNote:function(){
-        console.log(this.model.get('id'));
-        $.ajax({
-            type: "GET",
-            url: "http://note.creatzy.com/notes/getNoteContent",
-            data: { noteId: this.model.get('id')},
-            dataType: 'json',
-            success: function (res) { 
-                data = {
-                     "noteContent": res[0].content,
-                     "noteName": res[0].notename,
-                 };
-                console.log(data);
-                my = this;
-                dust.render("noteedit", data, function(err, out) {
-                     if(!err) {
-                         $("#content").html(out.toString());
-                         $('#content').trigger('create');
-                     } else {
-                         return console.log(err);
-                     }
-                 });
-
-            }
-        });
+        appRouterInstance.navigate("Note/"+this.model.get('id'), {trigger: true});
+		
     },
 });
 
