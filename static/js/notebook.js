@@ -56,7 +56,7 @@ var NotebookView = Backbone.View.extend({
 			//            "address": this.model.get('address'),
 			//            "reward_number": this.model.get('rewards').length,
 		};
-		console.log("cool+" + this.query);
+		//console.log("cool+" + this.query);
 		if (this.query != 'getPublicBookList')
 			data["delete_enable"] = true;
 		that = this;
@@ -186,9 +186,10 @@ $("#saveNoteButton").live("click", function() {
 			data : saveNoteData,
 			success : function(res) {
 				console.log("success");
-				appRouterInstance.navigate("NoteBook/", {
-					trigger : true
-				});
+				// appRouterInstance.navigate("NoteBook/", {
+				// 	trigger : true
+				// });
+                window.history.back();
 			}
 		});
 	} else {

@@ -71,7 +71,7 @@ var AppRouter = Backbone.Router.extend({
 		
 	},
 	getPublicBookList : function() {
-		console.log("getPublicBookList");
+		//console.log("getPublicBookList");
 		var newNotebooksView = new NotebooksView({'q':'getPublicBookList'});
 		this.changePage(newNotebooksView);
 		$("#addNewNotebookButton").css("display","none");

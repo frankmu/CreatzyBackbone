@@ -44,7 +44,7 @@ var NoteView = Backbone.View.extend({
  //            "address": this.model.get('address'),
  //            "reward_number": this.model.get('rewards').length,
          };
-         console.log(data);
+         //console.log(data);
          my = this;
          dust.render("notelist", data, function(err, out) {
              if(!err) {
