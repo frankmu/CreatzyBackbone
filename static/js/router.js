@@ -10,7 +10,7 @@ var AppRouter = Backbone.Router.extend({
 		"NoteBook/:notebookid" : "noteList",
 		"Usersetting" : "usersetting",
 		"Note/:noteid":"note",
-		"NewNote":"newNote",
+		"NewNote/:notebookid":"newNote",
 	},
 
 	help : function() {
@@ -25,15 +25,19 @@ var AppRouter = Backbone.Router.extend({
 		$("#addNewNotebookButton").css("display","none");
 		$("#addNewNoteButton").css("display","none");
 	},
-	newNote:function(){
+	newNote:function(notebookid){
+		console.log("hahahahah" + notebookid);
 		var note = new Note();
 		noteContentView = new NoteContentView({
 			noteid:"",
 		});
 		noteContentView.modal = note;
 
-		
+		console.log("hahahahah" + notebookid);
 		this.changePage(noteContentView);
+
+		$(noteContentView.el).attr("notebook-id",notebookid);
+
 		noteContentView.render();
 		$("#addNewNotebookButton").css("display","none");
 		$("#addNewNoteButton").css("display","none");
