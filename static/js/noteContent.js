@@ -17,7 +17,7 @@ var NoteContent = Backbone.Model.extend({
 });
 
 var NoteContentView = Backbone.View.extend({
-    tagName: "li",
+    tagName: "div",
     className: "NoteContent",
     events: {
         "click .notename": "openNote",
@@ -61,6 +61,25 @@ var NoteContentView = Backbone.View.extend({
              console.log($(my.el).html());
          });
          this.afterrender();
+
+         $("#saveNoteButton").live("click",function(){
+            var saveNoteData = {
+                'noteId': my.model.get('id'),
+                //'notebookId':my.model.get('notebook_id'),
+                'notename': $("#noteName").val(),
+                'content': $("#noteContent").val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://note.creatzy.com/notes/saveNote",
+                data : saveNoteData,
+                success: function (res) { 
+                    console.log("success");
+                    appRouterInstance.navigate("NoteBook/"+my.model.get('notebook_id'), {trigger: true});
+                }
+            });
+        });
+
          return $(my.el);
     	//return $(this.el).html(this.model.get('notename'));
     },
