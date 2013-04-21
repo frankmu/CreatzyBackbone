@@ -44,7 +44,7 @@ var NoteContentView = Backbone.View.extend({
          console.log(this.model.get('content'));
 
          $(this.el).attr("note-id",this.model.get('id'));
-         $(this.el).attr("notebook-id",this.model.get('notebook_id'));
+         //$(this.el).attr("notebook-id",this.model.get('notebook_id'));
 
          data = {
             'noteID': this.model.get('id'),
