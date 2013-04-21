@@ -93,6 +93,11 @@ var NotebooksView = Backbone.View.extend({
     render: function() {
         //$(this.el).html('');   
         $(this.el).attr("data-role","listview");
+        $(this.el).attr("data-inset","true");
+        $(this.el).attr("data-split","d");
+        $(this.el).attr("data-split-icon","delete");
+
+
         $(this.el).html(''); 
         //$(this.el).css("display","none");
         this.collection.each(function(notebook) {
