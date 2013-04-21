@@ -85,7 +85,11 @@ var NotesView = Backbone.View.extend({
     render: function() {
         $(this.el).attr("data-role","listview");
         $(this.el).attr("data-split","d");
+        $(this.el).attr("data-filter","true");
         $(this.el).attr("data-split-icon","delete");
+
+
+        $(this.el).attr("notebook-id",this.notebookid);
 
         $(this.el).html('');   
         this.collection.each(function(note) {

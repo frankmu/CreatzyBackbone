@@ -49,6 +49,7 @@ var NotebookView = Backbone.View.extend({
         data = {
             "notebookID": this.model.get('id'),
             "notebookName": this.model.get('name'),
+            "private":this.model.get('private'),
 //            "pic": this.model.get('pic'),
 //            "address": this.model.get('address'),
 //            "reward_number": this.model.get('rewards').length,
@@ -98,7 +99,7 @@ var NotebooksView = Backbone.View.extend({
     render: function() {
         //$(this.el).html('');   
         $(this.el).attr("data-role","listview");
-        
+        $(this.el).attr("data-filter","true");
         $(this.el).attr("data-split","d");
         $(this.el).attr("data-split-icon","delete");
 
@@ -123,28 +124,71 @@ var NotebooksView = Backbone.View.extend({
 
 
 $('.deleteButton').live('click', function() {
-	console.log("clicked");
+    console.log("clicked");
+    
+    $(this).simpledialog({
+        //'mode' : 'string',
+        'prompt' : 'Do you really want to delete Notebook ' + $(this).attr('data-name') + '?',
+        'buttons' : {
+            'OK' : {
+                click : function() {
+                    that=this;
+                    if($(this).hasClass("deleteNotebookButton")) {
+                        console.log("delete notebook"+$(that).attr('data-id'));
+                        $.ajax({
+                            url:"http://note.creatzy.com/notebook/deleteBook",
+                            data: { noteBookId: $(that).attr('data-id')},
+                            success: function(){  
+                                alert("deleteNotebookButton success");
+                            },
+                        })  
+                    }
+                    else if($(this).hasClass("deleteNoteButton")) {
+                        console.log("delete note"+$(that).attr('data-id'));
+                        $.ajax({
+                            url:"http://note.creatzy.com/notes/deleteNote",
+                            data: { noteId: $(that).attr('data-id')},
+                            success: function(){  
+                                alert("deleteNoteButton success");
+                            },
+                        })  
+                    }
+                    //$('#dialogoutput').text($('#dialoglink').attr('data-string'));
+                }
+            },
+            'Cancel' : {
+                click : function() {
+                },
+            icon : "delete",
+            theme : "c"
+            }
+        }
+    })
+});
+$("#saveNoteButton").live("click",function(){
+    var saveNoteData = {
+        'noteId': $(".NoteContent").attr("note-id"),
+        'notebookId':$(".Notes").attr("notebook-id"),
+        'notename': $("#noteName").val(),
+        'content': $("#noteContent").val(),
+    };
+    console.log(saveNoteData);
 
-	$(this).simpledialog({
-		//'mode' : 'string',
-		'prompt' : 'Do you really want to delete Notebook ' + $(this).attr('data-name') + '?',
-		'buttons' : {
-			'OK' : {
-				click : function() {
-					if($(this).hasClass("deleteNotebookButton")) alert("delete notebook");
-					else if($(this).hasClass("deleteNoteButton")) alert("delete note");
-					//$('#dialogoutput').text($('#dialoglink').attr('data-string'));
-				}
-			},
-			'Cancel' : {
-				click : function() {
-				},
-			icon : "delete",
-			theme : "c"
-			}
-		}
-	})
-})
+    // $.ajax({
+    //     type: "POST",
+    //     url: "http://note.creatzy.com/notes/saveNote",
+    //     data : saveNoteData,
+    //     success: function (res) { 
+    //         console.log("success");
+    //         appRouterInstance.navigate("NoteBook/"+my.model.get('notebook_id'), {trigger: true});
+    //     }
+    // });
+});
+$('#addNewNoteButton').live('click', function() {
+    console.log($(".Notes").attr("notebook-id"));
+
+    appRouterInstance.navigate("NewNote", {trigger: true});
+});
 
 
 
