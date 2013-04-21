@@ -1,10 +1,11 @@
 <div>
-	<label for="basic">Text Input:</label>
+	<label for="basic">Title:</label>
     <input type="text" name="name" id="noteName" value="{noteName}"  />
 </div>
 <div>
-	<label for="textarea-a">Textarea:</label>
+	<label for="textarea-a">Text:</label>
 	<textarea name="textarea" id="noteContent">
 		{noteContent}
 	</textarea>
 </div>
+<a data-role="button" class="ui-btn-right" data-inline="true" data-theme="b"  id="saveNoteButton">Save</a>
