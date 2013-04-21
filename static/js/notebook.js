@@ -55,9 +55,31 @@ var NotebookView = Backbone.View.extend({
         };
         that = this;
         dust.render("notebooklist", data, function(err, out) {
-            console.log(out);
+            //console.log(out);
             if(!err) {
                 $(that.el).html(out.toString());
+
+                $(document).delegate('#deleteNotebookButton' + that.model.get('id'), 'click', function() {
+                      $(this).simpledialog({
+                        //'mode' : 'string',
+                        'prompt' : 'Do you really want to delete Notebook ' + that.model.get('name') + '?',
+                        'buttons' : {
+                          'OK': {
+                            click: function () {
+                              $('#dialogoutput').text($('#dialoglink').attr('data-string'));
+                            }
+                          },
+                          'Cancel': {
+                            click: function () { },
+                            icon: "delete",
+                            theme: "c"
+                          }
+                        }
+                      })
+                    })
+
+
+
             } else {
                 return console.log(err);
             }
