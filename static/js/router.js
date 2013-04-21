@@ -1,3 +1,19 @@
+$(document).ready(function() {
+	$.ajaxSetup({
+		beforeSend : function() {
+			$.mobile.loading('show',{
+				text: 'Loading',
+				textVisible: true,
+				theme: 'a',
+				html: ""
+			});
+		},
+		complete : function() {
+			$.mobile.loading('hide');
+		}
+	});
+}); 
+
 var AppRouter = Backbone.Router.extend({
 
 	routes : {
