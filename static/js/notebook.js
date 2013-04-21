@@ -173,7 +173,17 @@ $("#saveNoteButton").live("click",function(){
         'content': $("#noteContent").val(),
     };
     console.log(saveNoteData);
-
+    if(saveNoteData.notebookId == undefined){
+        $.ajax({
+            type: "POST",
+            url: "http://note.creatzy.com/notes/saveNote",
+            data : saveNoteData,
+            success: function (res) { 
+                console.log("success");
+                appRouterInstance.navigate("NoteBook/"+my.model.get('notebook_id'), {trigger: true});
+            }
+        });
+    }
     // $.ajax({
     //     type: "POST",
     //     url: "http://note.creatzy.com/notes/saveNote",
