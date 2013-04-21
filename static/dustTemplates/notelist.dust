@@ -1,2 +1,2 @@
 <a class="notename">{noteName}</a>
-<a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+<a href="#" class="deleteNoteButton deleteButton" data-rel="popup" data-name="{noteName}"data-id="{noteID}"data-position-to="window" data-transition="pop">Delete</a>

@@ -98,7 +98,7 @@ var NotebooksView = Backbone.View.extend({
     render: function() {
         //$(this.el).html('');   
         $(this.el).attr("data-role","listview");
-        $(this.el).attr("data-inset","true");
+        
         $(this.el).attr("data-split","d");
         $(this.el).attr("data-split-icon","delete");
 
@@ -122,7 +122,7 @@ var NotebooksView = Backbone.View.extend({
 });
 
 
-$('.deleteNotebookButton').live('click', function() {
+$('.deleteButton').live('click', function() {
 	console.log("clicked");
 
 	$(this).simpledialog({
@@ -131,14 +131,16 @@ $('.deleteNotebookButton').live('click', function() {
 		'buttons' : {
 			'OK' : {
 				click : function() {
-					$('#dialogoutput').text($('#dialoglink').attr('data-string'));
+					if($(this).hasClass("deleteNotebookButton")) alert("delete notebook");
+					else if($(this).hasClass("deleteNoteButton")) alert("delete note");
+					//$('#dialogoutput').text($('#dialoglink').attr('data-string'));
 				}
 			},
 			'Cancel' : {
 				click : function() {
 				},
-				icon : "delete",
-				theme : "c"
+			icon : "delete",
+			theme : "c"
 			}
 		}
 	})
