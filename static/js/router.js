@@ -72,7 +72,7 @@ var AppRouter = Backbone.Router.extend({
 			$('#content').html($(page.el));
 			$('#content').trigger('create');
 		}
-		page.render();
+		//page.render();
 		// setTimeout(function(){
 			// $('#content').html($(page.el));
 			// $('#content').trigger('create');

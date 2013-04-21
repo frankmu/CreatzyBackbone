@@ -48,11 +48,11 @@ var NoteContentView = Backbone.View.extend({
 			'notebook_id':this.model.get('notebook_id'),
 	    	'create_date':this.model.get('notename'),
 	    	'last_modify':this.model.get('create_date'),
-	    	'content':this.model.get('content'),
+	    	'noteContent':this.model.get('content'),
          };
          console.log(data);
          my = this;
-         dust.render("notecontent", data, function(err, out) {
+         dust.render("noteedit", data, function(err, out) {
              if(!err) {
                  $(my.el).html(out.toString());
              } else {
