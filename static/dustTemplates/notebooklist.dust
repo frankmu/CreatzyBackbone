@@ -1,2 +1,2 @@
 <a class="bookname" href="#NoteBook/{notebookID}">{notebookName}</a>
-<a href="#" id="deleteNotebookButton{notebookID}" data-rel="popup" data-position-to="window" data-transition="pop">Delete</a>
+<a href="#" class="deleteNotebookButton deleteButton" data-rel="popup" data-name="{notebookName}"data-id="{notebookID}"data-position-to="window" data-transition="pop">Delete</a>

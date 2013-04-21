@@ -59,24 +59,7 @@ var NotebookView = Backbone.View.extend({
             if(!err) {
                 $(that.el).html(out.toString());
 
-                $(document).delegate('#deleteNotebookButton' + that.model.get('id'), 'click', function() {
-                      $(this).simpledialog({
-                        //'mode' : 'string',
-                        'prompt' : 'Do you really want to delete Notebook ' + that.model.get('name') + '?',
-                        'buttons' : {
-                          'OK': {
-                            click: function () {
-                              $('#dialogoutput').text($('#dialoglink').attr('data-string'));
-                            }
-                          },
-                          'Cancel': {
-                            click: function () { },
-                            icon: "delete",
-                            theme: "c"
-                          }
-                        }
-                      })
-                    })
+                
 
 
 
@@ -137,5 +120,30 @@ var NotebooksView = Backbone.View.extend({
     }
 
 });
+
+
+$('.deleteNotebookButton').live('click', function() {
+	console.log("clicked");
+
+	$(this).simpledialog({
+		//'mode' : 'string',
+		'prompt' : 'Do you really want to delete Notebook ' + $(this).attr('data-name') + '?',
+		'buttons' : {
+			'OK' : {
+				click : function() {
+					$('#dialogoutput').text($('#dialoglink').attr('data-string'));
+				}
+			},
+			'Cancel' : {
+				click : function() {
+				},
+				icon : "delete",
+				theme : "c"
+			}
+		}
+	})
+})
+
+
 
 
