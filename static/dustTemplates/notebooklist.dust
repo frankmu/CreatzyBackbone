@@ -1,1 +1,2 @@
 <a class="bookname" href="#NoteBook/{notebookID}">{notebookName}</a>
+<a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
