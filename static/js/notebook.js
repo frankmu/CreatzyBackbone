@@ -168,7 +168,7 @@ $('.deleteButton').live('click', function() {
 $("#saveNoteButton").live("click",function(){
     var saveNoteData = {
         'noteId': $(".NoteContent").attr("note-id"),
-        'notebookId':$(".Notes").attr("notebook-id"),
+        'notebookId':$(".NoteContent").attr("notebook-id"),
         'notename': $("#noteName").val(),
         'content': $("#noteContent").val(),
     };
@@ -187,7 +187,7 @@ $("#saveNoteButton").live("click",function(){
 $('#addNewNoteButton').live('click', function() {
     console.log($(".Notes").attr("notebook-id"));
 
-    appRouterInstance.navigate("NewNote", {trigger: true});
+    appRouterInstance.navigate("NewNote/"+ $(".Notes").attr("notebook-id"), {trigger: true});
 });
 
 
