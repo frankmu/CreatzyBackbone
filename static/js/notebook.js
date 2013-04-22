@@ -51,6 +51,7 @@ var NotebookView = Backbone.View.extend({
 		data = {
 			"notebookID" : this.model.get('id'),
 			"notebookName" : this.model.get('name'),
+			"notes_num": this.model.get('notes_num'),
 			//            "private":this.model.get('private'),
 			//            "pic": this.model.get('pic'),
 			//            "address": this.model.get('address'),
