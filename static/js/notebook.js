@@ -131,7 +131,7 @@ $('.deleteButton').live('click', function() {
 
 	$(this).simpledialog({
 		//'mode' : 'string',
-		'prompt' : 'Do you really want to delete Notebook ' + $(this).attr('data-name') + '?',
+		'prompt' : 'Do you really want to delete ' + ($(this).hasClass("deleteNotebookButton")? 'notebook ':'note ') + $(this).attr('data-name') + '?',
 		'buttons' : {
 			'OK' : {
 				click : function() {
