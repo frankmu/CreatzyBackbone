@@ -127,7 +127,7 @@ var NotebooksView = Backbone.View.extend({
 	}
 });
 
-$('.deleteButton').live('click', function() {
+$('.deleteButton').on('click', function() {
 	console.log("clicked");
 
 	$(this).simpledialog({
@@ -172,7 +172,7 @@ $('.deleteButton').live('click', function() {
 		}
 	})
 });
-$("#saveNoteButton").live("click", function() {
+$("#saveNoteButton").on("click", function() {
 	var saveNoteData = {
 		'noteId' : $(".NoteContent").attr("note-id"),
 		'notebookId' : $(".NoteContent").attr("notebook-id"),
@@ -207,9 +207,8 @@ $("#saveNoteButton").live("click", function() {
 	}
 });
 
-$('#addNewNoteButton').live('click', function() {
+$('#addNewNoteButton').on('click', function() {
 	console.log($(".Notes").attr("notebook-id"));
-
 	appRouterInstance.navigate("NewNote/" + $(".Notes").attr("notebook-id"), {
 		trigger : true
 	});

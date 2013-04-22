@@ -132,7 +132,7 @@ Backbone.history.start();
 
 function bindNewBookFunction(newNotebooksView){
 	$("#createNewNotebookButton").off("click"); 
-	$("#createNewNotebookButton").live("click", function(){ 
+	$("#createNewNotebookButton").on("click", function(){ 
 		$("#createNewNotebookButton").off("click"); 
 		var newNotebookName = $("#newNotebookName").val();
 	    console.log(newNotebookName);
@@ -158,6 +158,6 @@ function bindNewBookFunction(newNotebooksView){
 	}); 
 	
 }
-$("#goBackButton").live('click',function(){
+$("#goBackButton").on('click',function(){
 	window.history.back();
 });
