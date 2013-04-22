@@ -1,4 +1,4 @@
-<a class="bookname" href="#NoteBook/{notebookID}">{notebookName}</a>
+<a class="bookname" href="#NoteBook/{notebookID}">{notebookName}<span class="ui-li-count">{notes_num}</span></a>
 {#delete_enable}
 <a href="#" class="deleteNotebookButton deleteButton" data-rel="popup" data-name="{notebookName}"data-id="{notebookID}"data-position-to="window" data-transition="pop">Delete</a>
 {/delete_enable}
