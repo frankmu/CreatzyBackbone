@@ -158,6 +158,3 @@ function bindNewBookFunction(newNotebooksView){
 	}); 
 	
 }
-$("#goBackButton").on('click',function(){
-	window.history.back();
-});

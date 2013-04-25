@@ -77,6 +77,9 @@ var UserSettingView = Backbone.View.extend({
 var LoginView = Backbone.View.extend({
 	className : "Login",
 	tagName : "div",
+	events: {
+	    "click #loginSubmit":"loginSubmit",
+	},
 	initialize : function(options) {
 		this.model = new User();
 		that = this;
@@ -124,30 +127,32 @@ var LoginView = Backbone.View.extend({
 			}
 		});
 
-		$("#loginSubmit").on("click", function() {
-			$('#loginForm').submit(function() {
-				console.log($(this).serialize());
-				$.ajax({
-					data : $(this).serialize(),
-					type : 'POST',
-					url : $(this).attr('action'),
-					success : function(response) {
-						appRouterInstance.navigate("NoteBookList", {
-							trigger : true
-						});
-						$(document).ready(function() {
-							$("#homeNavi").removeClass('ui-disabled');
-							$("#publicNavi").removeClass('ui-disabled');
-							$("#settingNavi").removeClass('ui-disabled');
-						});
-					}
-				});
-				return false;
-				// cancel original event to prevent form submitting
-			});
-			$('#loginForm').submit();
-		});
+		
 		this.afterrender();
 		return $(this.el);
+	},
+	loginSubmit:function() {
+		console.log("bind login");
+		$('#loginForm').submit(function() {
+			console.log($(this).serialize());
+			$.ajax({
+				data : $(this).serialize(),
+				type : 'POST',
+				url : $(this).attr('action'),
+				success : function(response) {
+					appRouterInstance.navigate("NoteBookList", {
+						trigger : true
+					});
+					$(document).ready(function() {
+						$("#homeNavi").removeClass('ui-disabled');
+						$("#publicNavi").removeClass('ui-disabled');
+						$("#settingNavi").removeClass('ui-disabled');
+					});
+				}
+			});
+			return false;
+			// cancel original event to prevent form submitting
+		});
+		$('#loginForm').submit();
 	},
 }); 
