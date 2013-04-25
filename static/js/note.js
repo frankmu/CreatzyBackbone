@@ -32,7 +32,41 @@ var NoteView = Backbone.View.extend({
     className: "Note",
     events: {
         "click .notename": "openNote",
+        "click .deleteNoteButton":"deleteNote",
     },
+	deleteNote:function(event) {
+		event.preventDefault();
+		console.log("bind delete note");
+		
+		that = this;
+		$(this.el).simpledialog({
+			'mode' : 'bool',
+			'prompt' : 'Do you really want to delete node:' +this.model.get('notename')+'?',
+			'buttons' : {
+				'OK' : {
+					click : function() {
+						$.ajax({
+							url : "http://note.creatzy.com/notes/deleteNote",
+							data : {
+								noteId :that.model.get('id')
+							},
+							success : function() {
+								//alert("deleteNotebookButton success");
+								return false;
+							},
+						})
+					}
+				},
+				'Cancel' : {
+					click : function() {
+					},
+					icon : "delete",
+					theme : "c"
+				}
+			}
+		})
+	},
+
    
     render: function() {
     	//console.log("rr");

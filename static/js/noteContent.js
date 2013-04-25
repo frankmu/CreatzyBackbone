@@ -20,8 +20,43 @@ var NoteContentView = Backbone.View.extend({
     tagName: "div",
     className: "NoteContent",
     events: {
-        "click .notename": "openNote",
+        "click #saveNoteButton": "saveNote",
     },
+    saveNote: function() {
+    console.log("cool");
+		var saveNoteData = {
+			'noteId' : $(".NoteContent").attr("note-id"),
+			'notebookId' : $(".NoteContent").attr("notebook-id"),
+			'notename' : $("#noteName").val(),
+			'content' : $("#noteContent").val(),
+		};
+		console.log(saveNoteData);
+		if (saveNoteData.notebookId == undefined) {
+			$.ajax({
+				type : "POST",
+				url : "http://note.creatzy.com/notes/saveNote",
+				data : saveNoteData,
+				success : function(res) {
+					console.log("success");
+					// appRouterInstance.navigate("NoteBook/", {
+					// 	trigger : true
+					// });
+					window.history.back();
+				}
+			});
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "http://note.creatzy.com/notes/createNote",
+				data : saveNoteData,
+				success : function(res) {
+					appRouterInstance.navigate("NoteBook/" + saveNoteData.notebookId, {
+						trigger : true
+					});
+				}
+			});
+		}
+	},
     initialize:function(options){
 
     	

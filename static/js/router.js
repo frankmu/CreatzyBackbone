@@ -158,3 +158,16 @@ function bindNewBookFunction(newNotebooksView){
 	}); 
 	
 }
+
+
+$(function() {
+	$('#addNewNoteButton').on('click', function() {
+		console.log($(".Notes").attr("notebook-id"));
+		appRouterInstance.navigate("NewNote/" + $(".Notes").attr("notebook-id"), {
+			trigger : true
+		});
+	});
+	$("#goBackButton").on('click', function() {
+		window.history.back();
+	});
+})
