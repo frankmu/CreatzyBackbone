@@ -14,7 +14,7 @@ var dust = require('dustjs-linkedin');
 
 //watcher.on('fileModified', function(path, stats) {
 //console.log('and here');
-path = "./static/dustTemplates/login.dust";
+path = "./static/dustTemplates/notelist.dust";
   fs.readFile(path, 'ascii', function (err, data) {
     if (err) throw err;
 	
