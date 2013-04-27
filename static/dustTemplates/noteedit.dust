@@ -1,3 +1,4 @@
+{?publicNoteTag}
 <div>
 	<label for="basic">Title:</label>
     <input type="text" name="name" id="noteName" value="{noteName}"  />
@@ -9,3 +10,11 @@
 	</textarea>
 </div>
 <a data-role="button" class="ui-btn-right" data-inline="true" data-theme="b"  id="saveNoteButton">Save</a>
+{:else}
+<div data-theme="a" data-content-theme="a">
+    <h1>{noteName}</h1>
+    <p>
+		{noteContent}
+	</p>
+</div>
+{/publicNoteTag}
