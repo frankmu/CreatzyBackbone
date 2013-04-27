@@ -89,6 +89,9 @@ var NoteContentView = Backbone.View.extend({
 	    	'last_modify':this.model.get('create_date'),
 	    	'noteContent':this.model.get('content'),
          };
+         if(this.model.get('ownership')==true){
+            data.publicNoteTag = "exist";
+         }
          console.log(data);
          my = this;
          dust.render("noteedit", data, function(err, out) {
