@@ -62,8 +62,14 @@ var AppRouter = Backbone.Router.extend({
 		userSettingView = new UserSettingView({
 		});
 		this.changePage(userSettingView);
-		$("#addNewNotebookButton").css("display","none");
-		$("#addNewNoteButton").css("display","none");
+		
+		$(document).ready(function() {
+			$("#addNewNotebookButton").css("display","none");
+			$("#addNewNoteButton").css("display","none");
+			$("#homeNavi").removeClass('ui-btn-active');
+			$("#publicNavi").removeClass('ui-btn-active');
+			$("#settingNavi").addClass('ui-btn-active');
+		});
 
 	},
 	noteList : function(notebookid) {
@@ -81,17 +87,29 @@ var AppRouter = Backbone.Router.extend({
 		console.log("notebooklist");
 		var newNotebooksView = new NotebooksView({'q':'getBookList'});
 		this.changePage(newNotebooksView);
-		$("#addNewNotebookButton").css("display","block");
+		$(document).ready(function() {
+			$("#addNewNotebookButton").css("display","block");
+			$("#addNewNoteButton").css("display","none");
+			$("#homeNavi").addClass('ui-btn-active');
+			$("#publicNavi").removeClass('ui-btn-active');
+			$("#settingNavi").removeClass('ui-btn-active');
+		});
+		
 		bindNewBookFunction(newNotebooksView);
-		$("#addNewNoteButton").css("display","none");
+		
 		
 	},
 	getPublicBookList : function() {
 		//console.log("getPublicBookList");
 		var newNotebooksView = new NotebooksView({'q':'getPublicBookList'});
 		this.changePage(newNotebooksView);
-		$("#addNewNotebookButton").css("display","none");
-		$("#addNewNoteButton").css("display","none");
+		$(document).ready(function() {
+			$("#addNewNotebookButton").css("display","none");
+			$("#addNewNoteButton").css("display","none");
+			$("#homeNavi").removeClass('ui-btn-active');
+			$("#publicNavi").addClass('ui-btn-active');
+			$("#settingNavi").removeClass('ui-btn-active');
+		});
 		
 	},
 	loginView: function(){
