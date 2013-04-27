@@ -80,7 +80,12 @@ var NoteView = Backbone.View.extend({
          };
          //console.log(data);
          my = this;
-         if(this.model.get('ownership')==true) data.ownership=true;
+         if(this.model.get('ownership')==true) {
+         	data.ownership=true;
+         	$("#addNewNoteButton").css("display","block");
+         }else{
+         	$("#addNewNoteButton").css("display","none");
+         }
          dust.render("notelist", data, function(err, out) {
              if(!err) {
                  $(my.el).html(out.toString());

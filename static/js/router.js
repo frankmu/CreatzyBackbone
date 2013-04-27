@@ -79,7 +79,7 @@ var AppRouter = Backbone.Router.extend({
 		});
 		this.changePage(newNotesView);
 		$("#addNewNotebookButton").css("display","none");
-		$("#addNewNoteButton").css("display","block");
+		
 
 	},
 
