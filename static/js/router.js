@@ -27,6 +27,7 @@ var AppRouter = Backbone.Router.extend({
 		"Usersetting" : "usersetting",
 		"Note/:noteid":"note",
 		"NewNote/:notebookid":"newNote",
+		"NewUser":"newUser",
 	},
 
 	help : function() {
@@ -115,6 +116,16 @@ var AppRouter = Backbone.Router.extend({
 	loginView: function(){
 		var loginView = new LoginView();
 		this.changePage(loginView);
+		$("#addNewNotebookButton").css("display","none");
+		$("#addNewNoteButton").css("display","none");
+	},
+	newUser: function(){
+		var newUserView = new NewUserView();
+		this.changePage(newUserView);
+		setTimeout(function(){
+			
+		});
+		newUserView.render();
 		$("#addNewNotebookButton").css("display","none");
 		$("#addNewNoteButton").css("display","none");
 	},

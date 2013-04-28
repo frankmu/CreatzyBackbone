@@ -79,6 +79,7 @@ var LoginView = Backbone.View.extend({
 	tagName : "div",
 	events: {
 	    "click #loginSubmit":"loginSubmit",
+	    "click #createUser":"createUser",
 	},
 	initialize : function(options) {
 		this.model = new User();
@@ -155,4 +156,62 @@ var LoginView = Backbone.View.extend({
 		});
 		$('#loginForm').submit();
 	},
+	createUser: function(){
+		appRouterInstance.navigate("NewUser", {
+						trigger : true
+					});
+	},
 }); 
+var NewUserView = Backbone.View.extend({
+	className : "NewUserView",
+	tagName : "div",
+	events: {
+	    "click #createUserButton":"createUser",
+	},
+	initialize : function(options) {
+	},
+
+	render : function() {
+		
+		var data;
+		my = this;
+		dust.render("newuser", data, function(err, out) {
+			if (!err) {
+				//$("#content").html(out.toString());
+				//$('#content').trigger('create');
+				console.log("create user");
+				$(my.el).html(out.toString());
+			} else {
+				return console.log(err);
+			}
+		});
+		this.afterrender();
+		return $(this.el);
+
+	},
+	createUser:function(){
+		console.log("createnew");
+		$('#newUserForm').submit(function() {
+			console.log($(this).serialize());
+			$.ajax({
+				data : $(this).serialize(),
+				type : 'POST',
+				url : $(this).attr('action'),
+				success : function(response) {
+					console.log("create success");
+					appRouterInstance.navigate("NoteBookList", {
+						trigger : true
+					});
+					$(document).ready(function() {
+						$("#homeNavi").removeClass('ui-disabled');
+						$("#publicNavi").removeClass('ui-disabled');
+						$("#settingNavi").removeClass('ui-disabled');
+					});
+				}
+			});
+			return false;
+			// cancel original event to prevent form submitting
+		});
+		$('#newUserForm').submit();
+	},
+});
