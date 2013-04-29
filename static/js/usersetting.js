@@ -24,7 +24,7 @@ var UserSettingView = Backbone.View.extend({
 	events: {
 	    "click #logoutButton":"logOut",
 	    "click #backupButton":"backUp",
-	    "click #logoutButton":"logOut",
+	    "click #restoreButton":"restore",
 	},
 	initialize : function(options) {
 		//var user=new User();
@@ -117,6 +117,17 @@ var UserSettingView = Backbone.View.extend({
 		$.ajax({
 				type : "GET",
 				url : "http://note.creatzy.com/db/backup",
+				success : function(res) {
+					console.log(res);
+					$("a").removeClass("ui-disabled");
+				}
+			});
+	},
+	restore: function(){
+		$("a").addClass("ui-disabled");
+		$.ajax({
+				type : "GET",
+				url : "http://note.creatzy.com/db/restore",
 				success : function(res) {
 					console.log(res);
 					$("a").removeClass("ui-disabled");
