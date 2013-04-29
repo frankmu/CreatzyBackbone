@@ -1,6 +1,12 @@
 Backbone.emulateHTTP = true;
 Backbone.emulateJSON = true;
 
+function open_in_new_tab(url )
+{
+  var win=window.open(url, '_blank');
+  win.focus();
+}
+
 var User = Backbone.Model.extend({
 	initialize : function() {
 		//alert('Hey, you create me!');
@@ -25,6 +31,7 @@ var UserSettingView = Backbone.View.extend({
 	    "click #logoutButton":"logOut",
 	    "click #backupButton":"backUp",
 	    "click #restoreButton":"restore",
+	    "click #editUserButton":"editUser",
 	},
 	initialize : function(options) {
 		//var user=new User();
@@ -47,6 +54,7 @@ var UserSettingView = Backbone.View.extend({
 			"firstName" : this.model.get('first_name'),
 			"lastName" : this.model.get('last_name'),
 			"email" : this.model.get('email'),
+			"id": this.model.get('id'),
 		};
 		console.log(data);
 		my = this;
@@ -113,26 +121,82 @@ var UserSettingView = Backbone.View.extend({
 		// 			  }
 		// 			});
 		// 		},500);
-		$("a").addClass("ui-disabled");
 		$.ajax({
-				type : "GET",
-				url : "http://note.creatzy.com/db/backup",
-				success : function(res) {
-					console.log(res);
-					$("a").removeClass("ui-disabled");
+			type : "GET",				
+			url : "http://note.creatzy.com/db/test_dropbox",
+			success : function(res) {
+				console.log(res);
+				if(res == "access granted"){
+					$("a").addClass("ui-disabled");
+					$.ajax({							
+						type : "GET",
+						url : "http://note.creatzy.com/db/backup",
+						success : function(res) {
+							console.log(res);
+							$("a").removeClass("ui-disabled");
+						}
+					});
+				}else{
+					open_in_new_tab("http://note.creatzy.com/db/request_dropbox");
+					//window.location = "http://note.creatzy.com/db/request_dropbox";
 				}
-			});
+			}
+		});	
+	
+
+		
 	},
 	restore: function(){
-		$("a").addClass("ui-disabled");
 		$.ajax({
-				type : "GET",
-				url : "http://note.creatzy.com/db/restore",
-				success : function(res) {
-					console.log(res);
-					$("a").removeClass("ui-disabled");
+			type : "GET",				
+			url : "http://note.creatzy.com/db/test_dropbox",
+			success : function(res) {
+				console.log(res);
+				if(res == "access granted"){
+					$("a").addClass("ui-disabled");
+					$.ajax({
+							type : "GET",
+							url : "http://note.creatzy.com/db/restore",
+							success : function(res) {
+								console.log(res);
+								$("a").removeClass("ui-disabled");
+							}
+						});
+				}else{
+					open_in_new_tab("http://note.creatzy.com/db/request_dropbox");
+				}
+			}
+		});		
+	},
+	editUser: function(){
+		console.log("edit user");
+		$('#editUserForm').submit(function() {
+			console.log($(this).serialize());
+			$.ajax({
+				data : $(this).serialize(),
+				type : 'POST',
+				url : $(this).attr('action'),
+				success : function(response) {
+					console.log(response);
+					// if(response == "true"){
+					// 	appRouterInstance.navigate("", {
+					// 		trigger : true
+					// 	});
+					// 	$(document).ready(function() {
+					// 		$("#homeNavi").removeClass('ui-disabled');
+					// 		$("#publicNavi").removeClass('ui-disabled');
+					// 		$("#settingNavi").removeClass('ui-disabled');
+					// 	});
+					// }else{
+					// 	return false;
+					// }		
+					
 				}
 			});
+			return false;
+			// cancel original event to prevent form submitting
+		});
+		$('#editUserForm').submit();
 	},
 });
 var LoginView = Backbone.View.extend({
@@ -279,18 +343,4 @@ var NewUserView = Backbone.View.extend({
 		});
 		$('#newUserForm').submit();
 	},
-});
-$("#generic-dialog")
-                .live('pagebeforeshow', function () {
-                TolitoProgressBar('progressbar')
-                    .setOuterTheme('b')
-                    .setInnerTheme('e')
-                    .isMini(false)
-                    .setMax(100)
-                    .setStartFrom(0)
-                    .setInterval(5)
-                    .showCounter(false)
-                    .logOptions()
-                    .build()
-                    .run();
 });
