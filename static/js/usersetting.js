@@ -21,6 +21,11 @@ var user = new User();
 var UserSettingView = Backbone.View.extend({
 	className : "UserSetting",
 	tagName : "div",
+	events: {
+	    "click #logoutButton":"logOut",
+	    "click #backupButton":"backUp",
+	    "click #logoutButton":"logOut",
+	},
 	initialize : function(options) {
 		//var user=new User();
 
@@ -54,7 +59,12 @@ var UserSettingView = Backbone.View.extend({
 				return console.log(err);
 			}
 		});
-		$("#logoutButton").live("click", function() {
+		
+		this.afterrender();
+		return $(this.el);
+
+	},
+	logOut : function(){
 			console.log("logout");
 			$.ajax({
 				type : "GET",
@@ -68,11 +78,51 @@ var UserSettingView = Backbone.View.extend({
 
 				}
 			});
-		});
-		this.afterrender();
-		return $(this.el);
-
-	}
+	},
+	backUp : function(){
+		//$(".meter").css('display','block');
+		// $(function() {
+		// 	$(".meter > span").each(function() {
+		// 		$(this)
+		// 			.data("origWidth", $(this).width())
+		// 			.width(0)
+		// 			.animate({
+		// 				width: $(this).data("origWidth")
+		// 			}, 1200);
+		// 	});
+		// });
+		// xmlhttp = new XMLHttpRequest();
+		// 		xmlhttp.open("GET","http://note.creatzy.com/db/backup",true);
+		// 		xmlhttp.send();
+		// 		var handle=setInterval(function(){
+		// 			$.ajax({
+		// 			  type: "GET",
+		// 			  url: "http://note.creatzy.com/db/prograss",
+		// 			  success:function(data){
+		// 			  	if(parseInt(data)!=100) {
+		// 			  		console.log(data);
+		// 			  		$("#p_bar").width(data+"%");
+		// 			  	}
+		// 			  	else {
+		// 			  		console.log(data);
+		// 			  		console.log("cool");
+		// 			  		$("#p_bar").width(data+"%");
+		// 			  		clearInterval(handle);
+		// 			  	}
+					  	
+		// 			  }
+		// 			});
+		// 		},500);
+		$("a").addClass("ui-disabled");
+		$.ajax({
+				type : "GET",
+				url : "http://note.creatzy.com/db/backup",
+				success : function(res) {
+					console.log(res);
+					$("a").removeClass("ui-disabled");
+				}
+			});
+	},
 });
 var LoginView = Backbone.View.extend({
 	className : "Login",
@@ -218,4 +268,18 @@ var NewUserView = Backbone.View.extend({
 		});
 		$('#newUserForm').submit();
 	},
+});
+$("#generic-dialog")
+                .live('pagebeforeshow', function () {
+                TolitoProgressBar('progressbar')
+                    .setOuterTheme('b')
+                    .setInnerTheme('e')
+                    .isMini(false)
+                    .setMax(100)
+                    .setStartFrom(0)
+                    .setInterval(5)
+                    .showCounter(false)
+                    .logOptions()
+                    .build()
+                    .run();
 });
