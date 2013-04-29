@@ -18,4 +18,14 @@
     <label for="password2">Confirm Password:</label>
     <input type="password" name="password2" id="password2" value=""  />
 </div>
-<a data-role="button" data-inline="true" data-theme="b" id="logoutButton">Logout</a>
+<div class="ui-grid-b">
+        <div class="ui-block-a">
+            <a data-role="button" data-inline="true" data-theme="a" id="logoutButton">Logout</a>
+        </div>
+        <div class="ui-block-b">
+            <a data-role="button" data-inline="true" data-theme="b" id="backupButton">Backup</a>
+        </div>
+        <div class="ui-block-c">
+            <a data-role="button" data-inline="true" data-theme="c" id="restoreButton">Restore</a>
+        </div>
+</div>

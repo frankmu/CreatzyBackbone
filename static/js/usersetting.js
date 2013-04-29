@@ -21,6 +21,11 @@ var user = new User();
 var UserSettingView = Backbone.View.extend({
 	className : "UserSetting",
 	tagName : "div",
+	events: {
+	    "click #logoutButton":"logOut",
+	    "click #backupButton":"backUp",
+	    "click #restoreButton":"restore",
+	},
 	initialize : function(options) {
 		//var user=new User();
 
@@ -54,7 +59,12 @@ var UserSettingView = Backbone.View.extend({
 				return console.log(err);
 			}
 		});
-		$("#logoutButton").live("click", function() {
+		
+		this.afterrender();
+		return $(this.el);
+
+	},
+	logOut : function(){
 			console.log("logout");
 			$.ajax({
 				type : "GET",
@@ -68,17 +78,69 @@ var UserSettingView = Backbone.View.extend({
 
 				}
 			});
-		});
-		this.afterrender();
-		return $(this.el);
-
-	}
+	},
+	backUp : function(){
+		//$(".meter").css('display','block');
+		// $(function() {
+		// 	$(".meter > span").each(function() {
+		// 		$(this)
+		// 			.data("origWidth", $(this).width())
+		// 			.width(0)
+		// 			.animate({
+		// 				width: $(this).data("origWidth")
+		// 			}, 1200);
+		// 	});
+		// });
+		// xmlhttp = new XMLHttpRequest();
+		// 		xmlhttp.open("GET","http://note.creatzy.com/db/backup",true);
+		// 		xmlhttp.send();
+		// 		var handle=setInterval(function(){
+		// 			$.ajax({
+		// 			  type: "GET",
+		// 			  url: "http://note.creatzy.com/db/prograss",
+		// 			  success:function(data){
+		// 			  	if(parseInt(data)!=100) {
+		// 			  		console.log(data);
+		// 			  		$("#p_bar").width(data+"%");
+		// 			  	}
+		// 			  	else {
+		// 			  		console.log(data);
+		// 			  		console.log("cool");
+		// 			  		$("#p_bar").width(data+"%");
+		// 			  		clearInterval(handle);
+		// 			  	}
+					  	
+		// 			  }
+		// 			});
+		// 		},500);
+		$("a").addClass("ui-disabled");
+		$.ajax({
+				type : "GET",
+				url : "http://note.creatzy.com/db/backup",
+				success : function(res) {
+					console.log(res);
+					$("a").removeClass("ui-disabled");
+				}
+			});
+	},
+	restore: function(){
+		$("a").addClass("ui-disabled");
+		$.ajax({
+				type : "GET",
+				url : "http://note.creatzy.com/db/restore",
+				success : function(res) {
+					console.log(res);
+					$("a").removeClass("ui-disabled");
+				}
+			});
+	},
 });
 var LoginView = Backbone.View.extend({
 	className : "Login",
 	tagName : "div",
 	events: {
 	    "click #loginSubmit":"loginSubmit",
+	    "click #createUser":"createUser",
 	},
 	initialize : function(options) {
 		this.model = new User();
@@ -155,4 +217,80 @@ var LoginView = Backbone.View.extend({
 		});
 		$('#loginForm').submit();
 	},
+	createUser: function(){
+		appRouterInstance.navigate("NewUser", {
+						trigger : true
+					});
+	},
 }); 
+var NewUserView = Backbone.View.extend({
+	className : "NewUserView",
+	tagName : "div",
+	events: {
+	    "click #createUserButton":"createUser",
+	},
+	initialize : function(options) {
+	},
+
+	render : function() {
+		
+		var data;
+		my = this;
+		dust.render("newuser", data, function(err, out) {
+			if (!err) {
+				//$("#content").html(out.toString());
+				//$('#content').trigger('create');
+				console.log("create user");
+				$(my.el).html(out.toString());
+			} else {
+				return console.log(err);
+			}
+		});
+		this.afterrender();
+		return $(this.el);
+
+	},
+	createUser:function(){
+		console.log("createnew");
+		$('#newUserForm').submit(function() {
+			$.ajax({
+				data : $(this).serialize(),
+				type : 'POST',
+				url : $(this).attr('action'),
+				success : function(response) {
+					console.log(response);
+					if(response == "true"){
+						appRouterInstance.navigate("", {
+							trigger : true
+						});
+						$(document).ready(function() {
+							$("#homeNavi").removeClass('ui-disabled');
+							$("#publicNavi").removeClass('ui-disabled');
+							$("#settingNavi").removeClass('ui-disabled');
+						});
+					}else{
+						return false;
+					}		
+					
+				}
+			});
+			return false;
+			// cancel original event to prevent form submitting
+		});
+		$('#newUserForm').submit();
+	},
+});
+$("#generic-dialog")
+                .live('pagebeforeshow', function () {
+                TolitoProgressBar('progressbar')
+                    .setOuterTheme('b')
+                    .setInnerTheme('e')
+                    .isMini(false)
+                    .setMax(100)
+                    .setStartFrom(0)
+                    .setInterval(5)
+                    .showCounter(false)
+                    .logOptions()
+                    .build()
+                    .run();
+});
