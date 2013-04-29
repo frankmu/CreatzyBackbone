@@ -192,21 +192,25 @@ var NewUserView = Backbone.View.extend({
 	createUser:function(){
 		console.log("createnew");
 		$('#newUserForm').submit(function() {
-			console.log($(this).serialize());
 			$.ajax({
 				data : $(this).serialize(),
 				type : 'POST',
 				url : $(this).attr('action'),
 				success : function(response) {
-					console.log("create success");
-					appRouterInstance.navigate("NoteBookList", {
-						trigger : true
-					});
-					$(document).ready(function() {
-						$("#homeNavi").removeClass('ui-disabled');
-						$("#publicNavi").removeClass('ui-disabled');
-						$("#settingNavi").removeClass('ui-disabled');
-					});
+					console.log(response);
+					if(response == "true"){
+						appRouterInstance.navigate("", {
+							trigger : true
+						});
+						$(document).ready(function() {
+							$("#homeNavi").removeClass('ui-disabled');
+							$("#publicNavi").removeClass('ui-disabled');
+							$("#settingNavi").removeClass('ui-disabled');
+						});
+					}else{
+						return false;
+					}		
+					
 				}
 			});
 			return false;
