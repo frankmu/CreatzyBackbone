@@ -34,3 +34,11 @@
             <a data-role="button" data-inline="true" data-theme="e" id="restoreButton">Restore</a>
         </div>
 </div>
+<div id="progressbar"></div>
+<script>
+  $(function() {
+    $( "#progressbar" ).progressbar({
+      value: 37
+    });
+  });
+</script>

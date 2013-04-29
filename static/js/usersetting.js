@@ -1,10 +1,9 @@
 Backbone.emulateHTTP = true;
 Backbone.emulateJSON = true;
 
-function open_in_new_tab(url )
-{
-  var win=window.open(url, '_blank');
-  win.focus();
+function open_in_new_tab(url) {
+	var win = window.open(url, '_blank');
+	win.focus();
 }
 
 var User = Backbone.Model.extend({
@@ -27,11 +26,11 @@ var user = new User();
 var UserSettingView = Backbone.View.extend({
 	className : "UserSetting",
 	tagName : "div",
-	events: {
-	    "click #logoutButton":"logOut",
-	    "click #backupButton":"backUp",
-	    "click #restoreButton":"restore",
-	    "click #editUserButton":"editUser",
+	events : {
+		"click #logoutButton" : "logOut",
+		"click #backupButton" : "backUp",
+		"click #restoreButton" : "restore",
+		"click #editUserButton" : "editUser",
 	},
 	initialize : function(options) {
 		//var user=new User();
@@ -54,7 +53,7 @@ var UserSettingView = Backbone.View.extend({
 			"firstName" : this.model.get('first_name'),
 			"lastName" : this.model.get('last_name'),
 			"email" : this.model.get('email'),
-			"id": this.model.get('id'),
+			"id" : this.model.get('id'),
 		};
 		console.log(data);
 		my = this;
@@ -67,27 +66,27 @@ var UserSettingView = Backbone.View.extend({
 				return console.log(err);
 			}
 		});
-		
+
 		this.afterrender();
 		return $(this.el);
 
 	},
-	logOut : function(){
-			console.log("logout");
-			$.ajax({
-				type : "GET",
-				url : "http://note.creatzy.com/index.php?/auth/logout",
-				success : function(res) {
-					setTimeout(function() {
-						appRouterInstance.navigate("", {
-							trigger : true
-						});
-					}, 500);
+	logOut : function() {
+		console.log("logout");
+		$.ajax({
+			type : "GET",
+			url : "http://note.creatzy.com/index.php?/auth/logout",
+			success : function(res) {
+				setTimeout(function() {
+					appRouterInstance.navigate("", {
+						trigger : true
+					});
+				}, 500);
 
-				}
-			});
+			}
+		});
 	},
-	backUp : function(){
+	backUp : function() {
 		//$(".meter").css('display','block');
 		// $(function() {
 		// 	$(".meter > span").each(function() {
@@ -117,58 +116,138 @@ var UserSettingView = Backbone.View.extend({
 		// 			  		$("#p_bar").width(data+"%");
 		// 			  		clearInterval(handle);
 		// 			  	}
-					  	
+
 		// 			  }
 		// 			});
 		// 		},500);
 		$.ajax({
-			type : "GET",				
+			type : "GET",
 			url : "http://note.creatzy.com/db/test_dropbox",
 			success : function(res) {
 				console.log(res);
-				if(res == "access granted"){
+				if (res == "access granted") {
 					$("a").addClass("ui-disabled");
-					$.ajax({							
+					$.ajax({
 						type : "GET",
 						url : "http://note.creatzy.com/db/backup",
 						success : function(res) {
 							console.log(res);
-							$("a").removeClass("ui-disabled");
-						}
+
+						},
+						beforeSend : function() {
+							$.mobile.loading('show', {
+								text : 'Loading',
+								textVisible : true,
+								theme : 'a',
+								html : ""
+							});
+							$("#progressbar").progressbar({
+								value : 0
+							});
+							var handle = setInterval(function() {
+								$.ajax({
+									type : "GET",
+
+									url : "http://note.creatzy.com/db/prograss",
+									beforeSend : function() {
+									},
+									complete : function() {
+									},
+									success : function(data) {
+										if (parseInt(data) < 100) {
+											console.log(data);
+											//$("#p_bar").width(data + "%");
+											$("#progressbar").progressbar({
+												value : parseInt(data)
+											});
+										} else {
+											console.log(data);
+											console.log("cool");
+											$("#progressbar").progressbar({
+												value : 100
+											});
+											$("a").removeClass("ui-disabled");
+											clearInterval(handle);
+											$("#progressbar").hide(800);
+										}
+
+									}
+								});
+							}, 500);
+						},
 					});
-				}else{
+				} else {
 					open_in_new_tab("http://note.creatzy.com/db/request_dropbox");
 					//window.location = "http://note.creatzy.com/db/request_dropbox";
 				}
 			}
-		});	
-	
+		});
 
-		
 	},
-	restore: function(){
+	restore : function() {
 		$.ajax({
-			type : "GET",				
+			type : "GET",
 			url : "http://note.creatzy.com/db/test_dropbox",
 			success : function(res) {
 				console.log(res);
-				if(res == "access granted"){
+				if (res == "access granted") {
 					$("a").addClass("ui-disabled");
 					$.ajax({
-							type : "GET",
-							url : "http://note.creatzy.com/db/restore",
-							success : function(res) {
-								console.log(res);
-								$("a").removeClass("ui-disabled");
-							}
-						});
-				}else{
+						type : "GET",
+						url : "http://note.creatzy.com/db/restore",
+						success : function(res) {
+							console.log(res);
+							//$("a").removeClass("ui-disabled");
+						},
+						beforeSend : function() {
+							$.mobile.loading('show', {
+								text : 'Loading',
+								textVisible : true,
+								theme : 'a',
+								html : ""
+							});
+							$("#progressbar").progressbar({
+								value : 0
+							});
+							var handle = setInterval(function() {
+								$.ajax({
+									type : "GET",
+
+									url : "http://note.creatzy.com/db/prograss",
+									beforeSend : function() {
+									},
+									complete : function() {
+									},
+									success : function(data) {
+										if (parseInt(data) < 100) {
+											console.log(data);
+											//$("#p_bar").width(data + "%");
+											$("#progressbar").progressbar({
+												value : parseInt(data)
+											});
+										} else {
+											console.log(data);
+											console.log("cool");
+											$("#progressbar").progressbar({
+												value : 100
+											});
+											$("a").removeClass("ui-disabled");
+											clearInterval(handle);
+											$("#progressbar").hide(800);
+										}
+
+									}
+								});
+							}, 500);
+						},
+					});
+				} else {
 					open_in_new_tab("http://note.creatzy.com/db/request_dropbox");
 				}
 			}
-		});		
+		});
 	},
-	editUser: function(){
+	editUser : function() {
 		console.log("edit user");
 		$('#editUserForm').submit(function() {
 			console.log($(this).serialize());
@@ -189,8 +268,8 @@ var UserSettingView = Backbone.View.extend({
 					// 	});
 					// }else{
 					// 	return false;
-					// }		
-					
+					// }
+
 				}
 			});
 			return false;
@@ -202,9 +281,9 @@ var UserSettingView = Backbone.View.extend({
 var LoginView = Backbone.View.extend({
 	className : "Login",
 	tagName : "div",
-	events: {
-	    "click #loginSubmit":"loginSubmit",
-	    "click #createUser":"createUser",
+	events : {
+		"click #loginSubmit" : "loginSubmit",
+		"click #createUser" : "createUser",
 	},
 	initialize : function(options) {
 		this.model = new User();
@@ -253,11 +332,10 @@ var LoginView = Backbone.View.extend({
 			}
 		});
 
-		
 		this.afterrender();
 		return $(this.el);
 	},
-	loginSubmit:function() {
+	loginSubmit : function() {
 		console.log("bind login");
 		$('#loginForm').submit(function() {
 			console.log($(this).serialize());
@@ -281,23 +359,23 @@ var LoginView = Backbone.View.extend({
 		});
 		$('#loginForm').submit();
 	},
-	createUser: function(){
+	createUser : function() {
 		appRouterInstance.navigate("NewUser", {
-						trigger : true
-					});
+			trigger : true
+		});
 	},
-}); 
+});
 var NewUserView = Backbone.View.extend({
 	className : "NewUserView",
 	tagName : "div",
-	events: {
-	    "click #createUserButton":"createUser",
+	events : {
+		"click #createUserButton" : "createUser",
 	},
 	initialize : function(options) {
 	},
 
 	render : function() {
-		
+
 		var data;
 		my = this;
 		dust.render("newuser", data, function(err, out) {
@@ -314,7 +392,7 @@ var NewUserView = Backbone.View.extend({
 		return $(this.el);
 
 	},
-	createUser:function(){
+	createUser : function() {
 		console.log("createnew");
 		$('#newUserForm').submit(function() {
 			$.ajax({
@@ -323,7 +401,7 @@ var NewUserView = Backbone.View.extend({
 				url : $(this).attr('action'),
 				success : function(response) {
 					console.log(response);
-					if(response == "true"){
+					if (response == "true") {
 						appRouterInstance.navigate("", {
 							trigger : true
 						});
@@ -332,10 +410,10 @@ var NewUserView = Backbone.View.extend({
 							$("#publicNavi").removeClass('ui-disabled');
 							$("#settingNavi").removeClass('ui-disabled');
 						});
-					}else{
+					} else {
 						return false;
-					}		
-					
+					}
+
 				}
 			});
 			return false;
