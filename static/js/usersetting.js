@@ -144,6 +144,7 @@ var UserSettingView = Backbone.View.extend({
 							$("#progressbar").progressbar({
 								value : 0
 							});
+							$("#progressbar").show(500);
 							var handle = setInterval(function() {
 								$.ajax({
 									type : "GET",
@@ -168,7 +169,10 @@ var UserSettingView = Backbone.View.extend({
 											});
 											$("a").removeClass("ui-disabled");
 											clearInterval(handle);
-											$("#progressbar").hide(800);
+											setTimeout(function() {
+											      $("#progressbar").hide(1000);
+											}, 1000);
+											
 										}
 
 									}
@@ -209,6 +213,7 @@ var UserSettingView = Backbone.View.extend({
 							$("#progressbar").progressbar({
 								value : 0
 							});
+							$("#progressbar").show(500);
 							var handle = setInterval(function() {
 								$.ajax({
 									type : "GET",
@@ -233,7 +238,9 @@ var UserSettingView = Backbone.View.extend({
 											});
 											$("a").removeClass("ui-disabled");
 											clearInterval(handle);
-											$("#progressbar").hide(800);
+											setTimeout(function() {
+											      $("#progressbar").hide(1000);
+											}, 1000);
 										}
 
 									}
