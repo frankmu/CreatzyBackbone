@@ -184,12 +184,14 @@ function bindNewBookFunction(newNotebooksView){
 	$(document).on("click","#createNewNotebookButton",function(){ 
 		//$("#createNewNotebookButton").off("click"); 
 		var newNotebookName = $("#newNotebookName").val();
-	    console.log(newNotebookName);
+		var isPrivateCheckbox = $("#isPrivateCheckbox").attr('checked');
+		var isPrivate = (isPrivateCheckbox == "checked") ? 0 : 1;
+	    console.log(isPrivate);
 	    if(newNotebookName != ""){
 	        $.ajax({
 	            type: "POST",
 	            url: "http://note.creatzy.com/notebook/createNotebook",
-	            data: { strNotebookName: newNotebookName},
+	            data: { strNotebookName: newNotebookName, isPrivate: isPrivate},
 	            success: function (res) { 
 	            	res=jQuery.parseJSON( res );
 	            	res=res[0];
