@@ -178,9 +178,11 @@ Backbone.history.start();
 
 
 function bindNewBookFunction(newNotebooksView){
-	$("#createNewNotebookButton").off("click"); 
-	$("#createNewNotebookButton").on("click", function(){ 
-		$("#createNewNotebookButton").off("click"); 
+	//$("#createNewNotebookButton").off("click"); 
+	$(document).off("click","#createNewNotebookButton");
+	console.log("cool");
+	$(document).on("click","#createNewNotebookButton",function(){ 
+		//$("#createNewNotebookButton").off("click"); 
 		var newNotebookName = $("#newNotebookName").val();
 	    console.log(newNotebookName);
 	    if(newNotebookName != ""){
