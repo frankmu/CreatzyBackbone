@@ -24,6 +24,7 @@ var AppRouter = Backbone.Router.extend({
 		"NoteBookList" : "noteBookList",
 		"getPublicBookList" : "getPublicBookList",
 		"NoteBook/:notebookid" : "noteList",
+		"PublicNoteBook/:notebookid" : "publicnoteList",
 		"Usersetting" : "usersetting",
 		"Note/:noteid":"note",
 		"NewNote/:notebookid":"newNote",
@@ -77,9 +78,26 @@ var AppRouter = Backbone.Router.extend({
 		console.log(notebookid);
 		newNotesView = new NotesView({
 			notebookid : notebookid,
+			ownership:true,
 		});
-		this.changePage(newNotesView);
 		$("#addNewNotebookButton").css("display","none");
+		$("#addNewNoteButton").css("display","block");
+		this.changePage(newNotesView);
+		
+		
+		
+
+	},
+	publicnoteList : function(notebookid) {
+		console.log(notebookid);
+		newNotesView = new NotesView({
+			notebookid : notebookid,
+			ownership:false,
+		});
+		$("#addNewNotebookButton").css("display","none");
+		$("#addNewNoteButton").css("display","none");
+		this.changePage(newNotesView);
+		
 		
 
 	},

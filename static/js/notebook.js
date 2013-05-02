@@ -79,6 +79,15 @@ var NotebookView = Backbone.View.extend({
 		appRouterInstance.navigate("NoteBook/" + this.model.get('id'), {
 			trigger : true
 		});
+		if (this.query == 'getPublicBookList'){
+			
+			console.log("public");
+		}
+			
+		else{
+			console.log("not public");
+		}
+			
 		//app.navigate("NoteNook/"+this.model.get('id'), {trigger: true});
 
 	},

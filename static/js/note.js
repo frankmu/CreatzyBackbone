@@ -82,9 +82,9 @@ var NoteView = Backbone.View.extend({
          my = this;
          if(this.model.get('ownership')==true) {
          	data.ownership=true;
-         	$("#addNewNoteButton").css("display","block");
+         	//$("#addNewNoteButton").css("display","block");
          }else{
-         	$("#addNewNoteButton").css("display","none");
+         	//$("#addNewNoteButton").css("display","none");
          }
          dust.render("notelist", data, function(err, out) {
              if(!err) {
@@ -107,6 +107,7 @@ var NotesView = Backbone.View.extend({
     tagName: "ul",
     initialize:function(options){
     	this.notebookid=options.notebookid;
+    	this.ownership=options.ownership;
     	console.log(this.notebookid);
     	var notesCollection=new Notes({notebookid:this.notebookid});
     	this.collection=notesCollection;
@@ -127,6 +128,11 @@ var NotesView = Backbone.View.extend({
         $(this.el).attr("data-split","d");
         $(this.el).attr("data-filter","true");
         $(this.el).attr("data-split-icon","delete");
+        if(this.ownership==true){
+        	$("#addNewNoteButton").css("display","block");
+        	console.log("owner");
+        }
+        	
 
 
         $(this.el).attr("notebook-id",this.notebookid);
